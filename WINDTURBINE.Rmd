@@ -1,6 +1,6 @@
 ---
 title: "Project 1 - Wind Turbine Analysis"
-author: "Selah Norton - SDS 313 UT Austin"
+author: "Selah Grace Norton - SDS 313 UT Austin"
 output: pdf_document
 bibliography: citations.bib
 link-citations: yes
