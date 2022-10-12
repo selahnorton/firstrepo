@@ -1,0 +1,65 @@
+---
+title: "Project 1 - Wind Turbine Analysis"
+author: "Selah Norton - SDS 313 UT Austin"
+output: pdf_document
+bibliography: citations.bib
+link-citations: yes
+csl: nature.csl
+date: "2022-09-23"
+---
+
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(fig.height=5, fig.width=6, warning=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60))
+library(ggplot2)
+#Import data
+wind <- read.csv('Project1_wind_turbines.csv')
+```
+
+# **Introduction**
+
+The data set that is analyzed is about wind turbines in the US. It has data of the site of the turbine, the individual turbine, and about the project of the turbine. The site information includes the county, state, longitude and latitude of the turbines. For the individual turbine, capacity,  height, rotor diameter, swept area of the turbine and the height of the turbine's hub are recorded The turbine project data provides the number of turbines per project, the capacity,and the year created. My chosen outcome variable is the turbine capacity, the electrical generation capacity of the turbine measured in KW, kilo-watts. The predictors I will be investigating are the height of the turbine hubs, and the rotor diameter and the swept area of the turbine. 
+![United States Wind Turbine Database](turbine.jpeg)
+@https://doi.org/10.5066/f7tx3dn0
+
+
+# **Wind Turbine Capacity Distribution**
+
+```{r echo=FALSE}
+#Create ggplot
+wind_ggplot <- ggplot(wind)
+#Create univariate graph to display distribution
+hist(wind$Turbine.Capacity,main='Histogram of Turbine Capacity ',xlab='Turbine Capacity (KW)', pch=20)
+```
+
+The distribution of wind turbine capacity is right skewed, the median of capacity is `r round(median(wind$Turbine.Capacity),2)` kilo-watts, and the standard deviation is `r round(sd(wind$Turbine.Capacity),2)`. The five number summary of the data is `r round(fivenum(wind$Turbine.Capacity),2)`. 
+
+
+# **Investigating Predictors**
+
+``` {r echo=FALSE}
+#Create scatterplot
+wind_ggplot + geom_point(aes(x=Turbine.Hub_Height, y=Turbine.Capacity)) + labs(title='Relationship of Turbine Hub Height and Turbine Capacity', x='Turbine Hub Height (m)',y='Turbine Capacity (KW)')
+``` 
+
+The correlation between the predictor, Turbine Hub Height (m) and the outcome, Turbine Capacity (KW) is `r round(cor(wind$Turbine.Hub_Height, wind$Turbine.Capacity),2)`. Since this number is between 0.5 and 1, it shows a moderate to strong correlation between the two variables. The relationship is positive since it is a positive number, meaning the greater the hub height generally indicates a greater turbine capacity. 
+
+``` {r echo=FALSE}
+#Create scatterplot
+wind_ggplot + geom_point(aes(x=Turbine.Rotor_Diameter, y=Turbine.Capacity)) + labs(title='Relationship of Turbine Rotor Diameter and Turbine Capacity', x='Turbine Rotor Diameter (m)',y='Turbine Capacity (KW)')
+``` 
+
+The correlation between the predictor, Turbine Rotor Diameter (m) and the outcome, Turbine Capacity (KW) is `r round(cor(wind$Turbine.Rotor_Diameter, wind$Turbine.Capacity),2)`. Since this number is close to 1, it shows a strong correlation between the two variables. The relationship is positive since it is a positive number, meaning the greater the rotor diameter generally indicates a greater turbine capacity.
+
+``` {r echo=FALSE}
+#Create scatterplot
+wind_ggplot + geom_point(aes(x=Turbine.Swept_Area, y=Turbine.Capacity)) + labs(title='Relationship of Turbine Swept Area and Turbine Capacity', x='Swept Area (m^3)',y='Turbine Capacity (KW)')
+``` 
+
+The correlation between the predictor, Turbine Swept Area (m^3) and the outcome, Turbine Capacity (KW) is `r round(cor(wind$Turbine.Swept_Area, wind$Turbine.Capacity),2)`. Since this number is close to 1, it shows a strong correlation between the two variables. The relationship is positive since it is a positive number, meaning the greater the swept area generally indicates a greater turbine capacity.
+
+# **Conclusion**
+
+From the data, we were able to conclude that there was a positive and relatively strong relationship between all of the predictors (Turbine Hub Height, Rotor Diameter, and Swept Area) and the chosen outcome variable, turbine  capacity, the electrical generation capacity of the turbine measured in KW, kilo-watts. This means that generally, the greater the hub height, rotor diameter, and swept area, then the greater the electrical generation capacity of the given turbine. Further research on wind turbines might chose to examine the elevation of the location of the wind turbine or the materials of a wind turbine.  
+
+# **References**
+
